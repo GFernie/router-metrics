@@ -64,9 +64,14 @@ def parse_signal_metrics(response):
                 _k, v = match.groups()
                 k = f"{k}_{_k}"
             unit = ""
-            match = re.match(r"^(\-?[0-9]+\.?[0-9]*)([a-zA-Z]+)$", v)
-            if match:
-                v, unit = match.groups()
+            if match := re.match(r"^([A-Z]+)\[(.+)\]$", v):
+                unit, v = match.groups()
+            if match := re.match(r"^(\-?[0-9]+\.?[0-9]*)([a-zA-Z]+)$", v):
+                v, unit_suffix = match.groups()
+                unit = append_unit(unit, unit_suffix)
+            if match := re.match(r"^0x[A-F0-9]+$", v):
+                v = int(v, base=16)
+                unit = append_unit(unit, "hex")
             try:
                 float(v)
             except ValueError:
@@ -75,6 +80,12 @@ def parse_signal_metrics(response):
             yield GaugeMetricFamily(
                 f"signal_{k}", f"Signal metrics: {name}", unit=unit, value=v
             )
+
+
+def append_unit(unit, suffix):
+    if unit:
+        return f"{unit}_{suffix}"
+    return suffix
 
 
 def parse_monitoring_traffic(response):
