@@ -105,10 +105,11 @@ def parse_device_boot_time(response):
     )
 
 
-REGISTRY.register(
-    CpeCollector("https://hirouter.net", "admin", os.environ["ROUTER_PASSWORD"])
-)
-start_http_server(8000)
-interrupted = Event()
-signal.signal(signal.SIGTERM, lambda *args: interrupted.set())
-interrupted.wait()
+if __name__ == "__main__":
+    REGISTRY.register(
+        CpeCollector("https://hirouter.net", "admin", os.environ["ROUTER_PASSWORD"])
+    )
+    start_http_server(8000)
+    interrupted = Event()
+    signal.signal(signal.SIGTERM, lambda *args: interrupted.set())
+    interrupted.wait()

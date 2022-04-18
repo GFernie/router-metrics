@@ -1,0 +1,21 @@
+[project]
+name = "router-metrics"
+description = "Prometheus metrics collector for Huawei CPE Pro 2 router."
+version = "0.0.1"
+authors = [
+    { name = "Gary Fernie", email = "g@ryfernie.me" },
+]
+dependencies = [
+    "huawei-lte-api",
+    "prometheus-client",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "flake8",
+    "flake8-black",
+    "flake8-isort",
+    "isort",
+    "pytest",
+]
