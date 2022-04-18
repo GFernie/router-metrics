@@ -1,0 +1,16 @@
+services:
+  cpe:
+    build: .
+    environment:
+      - ROUTER_PASSWORD
+    ports:
+      - 8000:8000
+
+  prom:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    links:
+      - cpe

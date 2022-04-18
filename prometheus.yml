@@ -1,0 +1,14 @@
+scrape_configs:
+  - job_name: cpe
+    static_configs:
+      - targets:
+        - cpe:8000
+
+remote_write:
+  - url: https://prometheus-prod-01-eu-west-0.grafana.net/api/prom/push
+    basic_auth:
+      password: "$GRAFANA_PROMETHEUS_PASSWORD"
+      username: "$GRAFANA_PROMETHEUS_USERNAME"
+
+  - url: https://metric-api.eu.newrelic.com/prometheus/v1/write?prometheus_server=$NEWRELIC_PROMETHEUS_SERVER
+    bearer_token: "$NEWRELIC_PROMETHEUS_TOKEN"
