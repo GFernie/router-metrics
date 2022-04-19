@@ -1,4 +1,5 @@
 FROM python
-RUN pip install huawei-lte-api prometheus-client
-ADD cpe_target.py ./
-CMD ["python", "cpe_target.py"]
+WORKDIR /usr/src/app
+ADD cpe_target.py pyproject.toml ./
+RUN pip install .
+CMD ["python", "-m", "cpe_target"]
