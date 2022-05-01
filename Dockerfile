@@ -1,5 +1,5 @@
 FROM python
 WORKDIR /usr/src/app
-ADD cpe_target.py pyproject.toml ./
-RUN pip install .
-CMD ["python", "-m", "cpe_target"]
+ADD pyproject.toml src/ ./
+RUN --mount=type=cache,target=/root/.cache/pip,mode=0755 pip install .
+CMD ["python", "-m", "router_metrics.target"]

@@ -1,7 +1,7 @@
 import pytest
 from prometheus_client.core import GaugeMetricFamily
 
-import cpe_target
+from router_metrics import target
 
 
 def gauge(name, documentation, labels, label_values: dict):
@@ -60,4 +60,4 @@ def gauge(name, documentation, labels, label_values: dict):
     ids=lambda x: str(x) if isinstance(x, dict) else None,
 )
 def test_parse_signal_metrics(response, expected):
-    assert list(cpe_target.parse_signal_metrics(response)) == expected
+    assert list(target.parse_signal_metrics(response)) == expected
