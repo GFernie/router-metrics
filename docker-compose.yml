@@ -5,6 +5,7 @@ services:
       - ROUTER_PASSWORD
     ports:
       - 8000:8000
+    restart: on-failure
 
   prom:
     image: prom/prometheus
@@ -14,3 +15,4 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     links:
       - cpe
+    restart: on-failure

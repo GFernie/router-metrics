@@ -38,6 +38,7 @@ class CpeCollector:
         log.debug("Device Information: %s", device_info)
         log.debug("Device Signal: %s", device_signal)
         device_info = {k: v for k, v in device_info.items() if v is not None}
+        # TODO Info type appends "_info" resulting in "device_info_info".
         yield InfoMetricFamily(
             "device_info", "Export of device info endpoint", value=device_info
         )
