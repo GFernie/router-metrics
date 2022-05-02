@@ -14,6 +14,7 @@ def register_collectors():
     REGISTRY.register(
         CpeCollector("https://hirouter.net", "admin", os.environ["ROUTER_PASSWORD"])
     )
+    REGISTRY.register(RaspberryPiCollector())
 
 
 def run_forever():
