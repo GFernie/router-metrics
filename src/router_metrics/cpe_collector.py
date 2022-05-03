@@ -50,18 +50,6 @@ class CpeCollector:
         """Stop collect being called for describe on init."""
         return []
 
-    def __repr__(self):
-        return (
-            f"{self.__class__.__name__}"
-            f"({self.url!r}, username={self.username!r}, password={self.password!r})"
-        )
-
-    def __eq__(self, other):
-        return self.__dict__ == other.__dict__
-
-    def __hash__(self):
-        return hash((self.url, self.username, self.password))
-
 
 def parse_signal_metrics(response):
     for name, v in response.items():

@@ -33,9 +33,11 @@ def parse_get_throttled(response):
     for flag, set in throttled.flags:
         yield GaugeMetricFamily(
             f"raspberry_pi_vcgencmd_get_throttled_{flag.name.lower()}",
-            f"Raspberry Pi command `vcgencmd get_throttled`, flag {flag.name}, bitmask"
-            f" {flag.value:#x}.",
-            set,
+            documentation=(
+                f"Raspberry Pi command `vcgencmd get_throttled`, flag {flag.name},"
+                f" bitmask {flag.value:#x}."
+            ),
+            value=set,
         )
 
 

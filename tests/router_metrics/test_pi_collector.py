@@ -25,51 +25,67 @@ def test_parse_get_throttled():
     assert list(pi_collector.parse_get_throttled("0x50003")) == [
         GaugeMetricFamily(
             "raspberry_pi_vcgencmd_get_throttled_under_voltage_detected",
-            "Raspberry Pi command `vcgencmd get_throttled`, flag"
-            " UNDER_VOLTAGE_DETECTED, bitmask 0x1.",
-            True,
+            documentation=(
+                "Raspberry Pi command `vcgencmd get_throttled`, flag"
+                " UNDER_VOLTAGE_DETECTED, bitmask 0x1."
+            ),
+            value=True,
         ),
         GaugeMetricFamily(
             "raspberry_pi_vcgencmd_get_throttled_arm_frequency_capped",
-            "Raspberry Pi command `vcgencmd get_throttled`, flag ARM_FREQUENCY_CAPPED,"
-            " bitmask 0x2.",
-            True,
+            documentation=(
+                "Raspberry Pi command `vcgencmd get_throttled`, flag"
+                " ARM_FREQUENCY_CAPPED, bitmask 0x2."
+            ),
+            value=True,
         ),
         GaugeMetricFamily(
             "raspberry_pi_vcgencmd_get_throttled_currently_throttled",
-            "Raspberry Pi command `vcgencmd get_throttled`, flag CURRENTLY_THROTTLED,"
-            " bitmask 0x4.",
-            False,
+            documentation=(
+                "Raspberry Pi command `vcgencmd get_throttled`, flag"
+                " CURRENTLY_THROTTLED, bitmask 0x4."
+            ),
+            value=False,
         ),
         GaugeMetricFamily(
             "raspberry_pi_vcgencmd_get_throttled_soft_temperature_limit_active",
-            "Raspberry Pi command `vcgencmd get_throttled`, flag"
-            " SOFT_TEMPERATURE_LIMIT_ACTIVE, bitmask 0x8.",
-            False,
+            documentation=(
+                "Raspberry Pi command `vcgencmd get_throttled`, flag"
+                " SOFT_TEMPERATURE_LIMIT_ACTIVE, bitmask 0x8."
+            ),
+            value=False,
         ),
         GaugeMetricFamily(
             "raspberry_pi_vcgencmd_get_throttled_under_voltage_has_occurred",
-            "Raspberry Pi command `vcgencmd get_throttled`, flag"
-            " UNDER_VOLTAGE_HAS_OCCURRED, bitmask 0x10000.",
-            True,
+            documentation=(
+                "Raspberry Pi command `vcgencmd get_throttled`, flag"
+                " UNDER_VOLTAGE_HAS_OCCURRED, bitmask 0x10000."
+            ),
+            value=True,
         ),
         GaugeMetricFamily(
             "raspberry_pi_vcgencmd_get_throttled_arm_frequency_capping_has_occurred",
-            "Raspberry Pi command `vcgencmd get_throttled`, flag"
-            " ARM_FREQUENCY_CAPPING_HAS_OCCURRED, bitmask 0x20000.",
-            False,
+            documentation=(
+                "Raspberry Pi command `vcgencmd get_throttled`, flag"
+                " ARM_FREQUENCY_CAPPING_HAS_OCCURRED, bitmask 0x20000."
+            ),
+            value=False,
         ),
         GaugeMetricFamily(
             "raspberry_pi_vcgencmd_get_throttled_throttling_has_occurred",
-            "Raspberry Pi command `vcgencmd get_throttled`, flag"
-            " THROTTLING_HAS_OCCURRED, bitmask 0x40000.",
-            True,
+            documentation=(
+                "Raspberry Pi command `vcgencmd get_throttled`, flag"
+                " THROTTLING_HAS_OCCURRED, bitmask 0x40000."
+            ),
+            value=True,
         ),
         GaugeMetricFamily(
             "raspberry_pi_vcgencmd_get_throttled_soft_temperature_limit_has_occurred",
-            "Raspberry Pi command `vcgencmd get_throttled`, flag"
-            " SOFT_TEMPERATURE_LIMIT_HAS_OCCURRED, bitmask 0x80000.",
-            False,
+            documentation=(
+                "Raspberry Pi command `vcgencmd get_throttled`, flag"
+                " SOFT_TEMPERATURE_LIMIT_HAS_OCCURRED, bitmask 0x80000."
+            ),
+            value=False,
         ),
     ]
 

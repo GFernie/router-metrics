@@ -4,41 +4,6 @@ from prometheus_client.core import GaugeMetricFamily
 from router_metrics import cpe_collector
 
 
-def test_repr():
-    assert (
-        repr(cpe_collector.CpeCollector("foo", "bar", "lol"))
-        == "CpeCollector('foo', username='bar', password='lol')"
-    )
-
-
-def test_repr_kwarg_defaults():
-    assert (
-        repr(cpe_collector.CpeCollector("foo"))
-        == "CpeCollector('foo', username=None, password=None)"
-    )
-
-
-def test_eq():
-    assert cpe_collector.CpeCollector(
-        "foo", "bar", "lol"
-    ) == cpe_collector.CpeCollector("foo", "bar", "lol")
-
-
-def test_not_eq():
-    assert cpe_collector.CpeCollector(
-        "foo", "bar", "lol"
-    ) != cpe_collector.CpeCollector("foo", "bar", "wat")
-
-
-def test_hash():
-    d = {
-        cpe_collector.CpeCollector("foo", "bar", "wat"): 0,
-        cpe_collector.CpeCollector("foo", "bar", "lol"): 1,
-        cpe_collector.CpeCollector("foo", "bar", "lol"): 2,
-    }
-    assert tuple(d.values()) == (0, 2)
-
-
 def gauge(name, documentation, labels, label_values: dict):
     g = GaugeMetricFamily(name, documentation, labels=labels)
     for k, v in label_values.items():

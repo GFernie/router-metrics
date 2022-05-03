@@ -6,6 +6,7 @@ from threading import Event
 from prometheus_client import REGISTRY, start_http_server
 
 from router_metrics.cpe_collector import CpeCollector
+from router_metrics.pi_collector import RaspberryPiCollector
 
 logging.basicConfig(level=logging.INFO)
 
