@@ -25,7 +25,7 @@ def run_host_process(command):
         shell=True,
         capture_output=True,
         check=True,
-    ).stdout
+    ).stdout.decode()
 
 
 def parse_get_throttled(response):
