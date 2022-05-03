@@ -22,7 +22,7 @@ def log_stream():
 
 
 def test_parse_get_throttled():
-    assert list(pi_collector.parse_get_throttled("0x50003")) == [
+    assert list(pi_collector.parse_get_throttled("throttled=0x50003\n")) == [
         GaugeMetricFamily(
             "raspberry_pi_vcgencmd_get_throttled_under_voltage_detected",
             documentation=(
@@ -92,7 +92,9 @@ def test_parse_get_throttled():
 
 def test_parse_get_throttled_ok():
     assert not any(
-        s.value for m in pi_collector.parse_get_throttled("0x0") for s in m.samples
+        s.value
+        for m in pi_collector.parse_get_throttled("throttled=0x0\n")
+        for s in m.samples
     )
 
 
@@ -100,7 +102,8 @@ def test_parse_get_throttled_error(log_stream):
     list(pi_collector.parse_get_throttled("foo"))
     assert (
         log_stream.getvalue()
-        == "WARNING:router_metrics.pi_collector:Could not parse get_throttled 'foo'\n"
+        == "WARNING:router_metrics.pi_collector:Could not parse vcgencmd get_throttled"
+        " 'foo'\n"
     )
 
 

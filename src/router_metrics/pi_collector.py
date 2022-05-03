@@ -1,4 +1,5 @@
 import logging
+import re
 import subprocess
 from enum import Flag
 
@@ -28,10 +29,15 @@ def run_host_process(command):
 
 
 def parse_get_throttled(response):
+    if match := re.match(r"throttled=(0x.+)", response):
+        hex_flags = match.group(1)
+    else:
+        log.warning("Could not parse vcgencmd get_throttled %r", response)
+        return
     try:
-        throttled = Throttled(int(response, base=16))
+        throttled = Throttled(int(hex_flags, base=16))
     except (TypeError, ValueError):
-        log.warning("Could not parse get_throttled %r", response)
+        log.warning("Could not parse vcgencmd get_throttled %r", response)
         return
     for flag, set in throttled.flags:
         yield GaugeMetricFamily(
