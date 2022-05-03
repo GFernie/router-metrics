@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO)
 
 def register_collectors():
     REGISTRY.register(
-        CpeCollector("https://hirouter.net", "admin", os.environ["ROUTER_PASSWORD"])
+        CpeCollector("https://hirouter.net", "admin", os.environ.get("ROUTER_PASSWORD"))
     )
     REGISTRY.register(RaspberryPiCollector())
 

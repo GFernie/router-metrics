@@ -10,18 +10,21 @@ log = logging.getLogger(__name__)
 class RaspberryPiCollector:
     def collect(self):
         try:
-            get_throttled = subprocess.run(
-                # TODO Inject private key and host key.
-                "ssh host.docker.internal vcgencmd get_throttled",
-                shell=True,
-                capture_output=True,
-                check=True,
-            ).stdout
+            get_throttled = run_host_process("vcgencmd get_throttled")
         except subprocess.CalledProcessError as e:
             e.__traceback__ = None
-            log.warning("Failed to connect to host", exc_info=e)
+            log.warning("Failed to scrape host", exc_info=e)
             return
         yield from parse_get_throttled(get_throttled)
+
+
+def run_host_process(command):
+    return subprocess.run(
+        f"nsenter -t 1 -m {command}",
+        shell=True,
+        capture_output=True,
+        check=True,
+    ).stdout
 
 
 def parse_get_throttled(response):
