@@ -18,6 +18,10 @@ class RaspberryPiCollector:
             return
         yield from parse_get_throttled(get_throttled)
 
+    def describe(self):
+        """Stop collect being called for describe on init."""
+        return []
+
 
 def run_host_process(command):
     return subprocess.run(
