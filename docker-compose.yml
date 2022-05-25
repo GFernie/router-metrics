@@ -18,3 +18,17 @@ services:
     restart: on-failure
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
+  newrelic-infra:
+    image: newrelic/infrastructure:latest
+    cap_add:
+      - SYS_PTRACE
+    environment:
+      - NRIA_LICENSE_KEY
+    network_mode: host
+    pid: host
+    privileged: true
+    restart: always
+    volumes:
+      - /:/host:ro
+      - /var/run/docker.sock:/var/run/docker.sock
