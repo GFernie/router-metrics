@@ -7,7 +7,7 @@ services:
     ports:
       - 8000:8000
     privileged: true
-    restart: on-failure
+    restart: always
 
   prom:
     image: prom/prometheus
@@ -15,7 +15,7 @@ services:
       - cpe
     ports:
       - 9090:9090
-    restart: on-failure
+    restart: always
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
 
