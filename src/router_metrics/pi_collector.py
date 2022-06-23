@@ -12,11 +12,15 @@ class RaspberryPiCollector:
     def collect(self):
         try:
             get_throttled = run_host_process("vcgencmd get_throttled")
+            measure_temp = run_host_process("vcgencmd measure_temp")
+            measure_volts = run_host_process("vcgencmd measure_volts")
         except subprocess.CalledProcessError as e:
             e.__traceback__ = None
             log.warning("Failed to scrape host", exc_info=e)
             return
         yield from parse_get_throttled(get_throttled)
+        yield parse_measure_temp(measure_temp)
+        yield parse_measure_volts(measure_volts)
 
     def describe(self):
         """Stop collect being called for describe on init."""
@@ -52,6 +56,34 @@ def parse_get_throttled(response):
             ),
             value=set,
         )
+
+
+def parse_measure_temp(response):
+    if match := re.match(r"temp=([0-9\.]+)'C", response):
+        value = match.group(1)
+    else:
+        log.warning("Could not parse vcgencmd measure_temp %r", response)
+        return
+    return GaugeMetricFamily(
+        "raspberry_py_vcgencmd_measure_temp",
+        documentation="Raspberry Pi command `vcgencmd measure_temp`",
+        value=float(value),
+        unit="C",
+    )
+
+
+def parse_measure_volts(response):
+    if match := re.match(r"volt=([0-9\.]+)V", response):
+        value = match.group(1)
+    else:
+        log.warning("Could not parse vcgencmd measure_volts %r", response)
+        return
+    return GaugeMetricFamily(
+        "raspberry_py_vcgencmd_measure_volts",
+        documentation="Raspberry Pi command `vcgencmd measure_volts`",
+        value=float(value),
+        unit="V",
+    )
 
 
 class Throttled(Flag):

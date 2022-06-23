@@ -107,6 +107,24 @@ def test_parse_get_throttled_error(log_stream):
     )
 
 
+def test_parse_measure_temp():
+    assert pi_collector.parse_measure_temp("temp=50.5'C\n") == GaugeMetricFamily(
+        "raspberry_py_vcgencmd_measure_temp",
+        documentation="Raspberry Pi command `vcgencmd measure_temp`",
+        value=50.5,
+        unit="C",
+    )
+
+
+def test_parse_measure_volts():
+    assert pi_collector.parse_measure_volts("volt=1.3312V\n") == GaugeMetricFamily(
+        "raspberry_py_vcgencmd_measure_volts",
+        documentation="Raspberry Pi command `vcgencmd measure_volts`",
+        value=1.3312,
+        unit="V",
+    )
+
+
 def test_throttled():
     assert list(pi_collector.Throttled(0x50003).flags) == [
         (pi_collector.Throttled.UNDER_VOLTAGE_DETECTED, True),
