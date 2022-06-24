@@ -65,7 +65,7 @@ def parse_measure_temp(response):
         log.warning("Could not parse vcgencmd measure_temp %r", response)
         return
     return GaugeMetricFamily(
-        "raspberry_py_vcgencmd_measure_temp",
+        "raspberry_pi_vcgencmd_measure_temp",
         documentation="Raspberry Pi command `vcgencmd measure_temp`",
         value=float(value),
         unit="C",
@@ -79,7 +79,7 @@ def parse_measure_volts(response):
         log.warning("Could not parse vcgencmd measure_volts %r", response)
         return
     return GaugeMetricFamily(
-        "raspberry_py_vcgencmd_measure_volts",
+        "raspberry_pi_vcgencmd_measure_volts",
         documentation="Raspberry Pi command `vcgencmd measure_volts`",
         value=float(value),
         unit="V",
